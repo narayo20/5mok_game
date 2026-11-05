@@ -2,7 +2,26 @@
 
 스마트폰(iOS 아이폰 / Android 갤럭시 등) 2대 간 **Wi-Fi 또는 모바일 핫스팟**을 통해 1:1 직접 연결(WebRTC P2P)하여 즐길 수 있는 **공식 렌주룰(Renju) 15×15 모바일 오목 게임**입니다.
 
-별도의 앱스토어 설치 없이 모바일 브라우저(Safari, Chrome)에서 QR 코드 스캔 한 번으로 즉시 접속되며, [홈 화면에 추가] 기능을 통해 완전한 전체화면 모바일 앱으로 실행할 수 있습니다.
+Android 네이티브 APK 패키지, iOS Xcode 프로젝트, 그리고 iOS/Android 공용 PWA(홈 화면 추가 앱)로 완벽히 패키징되어 있습니다.
+
+---
+
+## 📥 모바일 앱 다운로드 및 설치 경로
+
+### 🤖 안드로이드 (Android APK)
+- **다운로드 경로:** 👉 **[GitHub Releases에서 APK 다운로드](https://github.com/narayo20/5mok_game/releases)**
+- **설치 방법:**
+  1. 위 링크에서 `5mok_game-android.apk` 파일을 다운로드합니다.
+  2. 다운로드된 파일을 탭하여 설치(출처를 알 수 없는 앱 허용)하면 스마트폰에 **5mok_game** 앱이 바로 설치됩니다.
+
+### 🍎 아이폰 (iOS)
+- **방법 1 (무설치 원터치 앱 생성 - 가장 권장):**
+  1. 아이폰의 Safari 브라우저에서 게임에 접속합니다.
+  2. 하단 브라우저 메뉴의 **[공유 버튼 (네모에 화살표)]**을 누릅니다.
+  3. **[홈 화면에 추가]**를 탭합니다.
+  4. 아이폰 홈 화면에 **5mok_game** 앱 아이콘이 생성되며, 브라우저 주소창 없는 전체화면 네이티브 앱으로 실행됩니다.
+- **방법 2 (Xcode 네이티브 프로젝트 빌드):**
+  - Mac에서 저장소 클론 후 `ios/App/App.xcworkspace`를 Xcode로 열어 아이폰에 직접 빌드 및 설치할 수 있습니다.
 
 ---
 
@@ -47,7 +66,7 @@
 
 ---
 
-## 🚀 빠른 실행 방법
+## 🚀 빠른 실행 및 로컬 호스팅 방법
 
 ### 1. 패키지 설치
 ```bash
@@ -70,7 +89,7 @@ npm start
 ## 📱 스마트폰 1:1 대전 접속 가이드
 
 1. **스마트폰 1번 (호스트 / 흑돌 선공)**:
-   - 터미널에 표시된 QR 코드를 스마트폰 기본 카메라 앱으로 비추어 접속합니다.
+   - 터미널에 표시된 QR 코드를 스마트폰 기본 카메라 앱으로 비추어 접속하거나 설치된 앱을 실행합니다.
    - 상단 모드 메뉴에서 **[1:1 Wi-Fi]** -> **[방 만들기]**를 터치합니다.
    - 화면에 4자리 방 번호와 초대용 QR 코드가 나타납니다.
 
@@ -79,15 +98,22 @@ npm start
    - 자동으로 방에 참여되며 1:1 P2P 대전이 즉시 시작됩니다!
    - (또는 [방 참가하기] 탭에서 4자리 방 번호를 직접 입력해도 연결됩니다)
 
-> 💡 **Tip (전체화면 앱으로 즐기기):**  
-> 스마트폰 브라우저 메뉴(Safari는 공유 버튼, Chrome은 점 3개 메뉴)에서 **[홈 화면에 추가]**를 누르면 앱스토어 앱처럼 전체화면으로 실행됩니다.
-
 ---
 
-## 📁 프로젝트 구조
+## 🛠️ 모바일 패키지 프로젝트 구조
 
 ```text
 5mok_game/
+├── android/                      # 네이티브 Android Studio 프로젝트
+│   ├── app/                      # Java/Kotlin, AndroidManifest.xml, Gradle
+│   └── gradlew                   # Android CLI 빌더
+├── ios/                          # 네이티브 iOS Xcode 프로젝트
+│   └── App/
+│       ├── App.xcworkspace       # Xcode 작업공간
+│       └── App/Info.plist        # iOS 로컬 네트워크 권한 설정
+├── .github/
+│   └── workflows/
+│       └── build-mobile.yml      # 자동 APK 빌드 & GitHub Releases 배포 CI/CD
 ├── demo/
 │   ├── sample_gameplay.gif       # README 미리보기용 애니메이션 GIF
 │   └── sample_gameplay.mp4       # 고화질 샘플 비디오
@@ -106,8 +132,7 @@ npm start
 │   │   └── sound.ts              # Web Audio API 오프라인 음향 합성기
 │   ├── App.tsx                   # 메인 게임 컨트롤러
 │   └── main.tsx
-├── scripts/
-│   └── record-sample-video.js    # 샘플 비디오/GIF 자동 녹화 스크립트
+├── capacitor.config.ts           # Capacitor 크로스 플랫폼 설정
 ├── server.js                     # 로컬 Wi-Fi IP 자동 감지 & QR 제공 서버
 ├── package.json
 └── vite.config.ts
