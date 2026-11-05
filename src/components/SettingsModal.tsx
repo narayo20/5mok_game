@@ -163,6 +163,10 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
         >
           완료
         </button>
+
+        <div className="text-center text-[11px] text-slate-500 mt-3 font-mono">
+          5mok_game v1.1.0 (iOS & Android 패키지)
+        </div>
       </div>
     </div>
   );
